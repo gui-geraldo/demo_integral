@@ -3,44 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atualização de Pedido</title>
+    <title>Gestão de Pedidos</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 20px;
             text-align: center;
-            margin: 50px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .section {
+            width: 90%;
+            border: 2px solid black;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #ddd;
+        }
+        .bottom-section {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+        }
+        .buttons, .vendedores-clientes {
+            width: 48%;
+            border: 2px solid black;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
         }
         button {
-            padding: 15px 25px;
-            margin: 10px;
-            font-size: 18px;
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 16px;
             cursor: pointer;
         }
     </style>
     <script>
-        function enviarStatus(status) {
+        function enviarStatus(evento) {
             const webhookURL = "https://hook.eu2.make.com/k3cgswnxkwflya2n8vseontkwhb6ng7a"; // Substitua pelo seu webhook real
             
+            const payload = {
+                função: "Atualiza Status",
+                event: evento
+            };
+
             fetch(webhookURL, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ status: status })
+                body: JSON.stringify(payload)
             })
             .then(response => response.json())
-            .then(data => alert("Status enviado: " + status))
+            .then(data => alert("Status enviado: " + evento))
             .catch(error => alert("Erro ao enviar: " + error));
         }
     </script>
 </head>
 <body>
 
-    <h2>Atualização de Status do Pedido</h2>
-    
-    <button onclick="enviarStatus('Pedido Confirmado')">Pedido Confirmado</button>
-    <button onclick="enviarStatus('Pedido Enviado')">Pedido Enviado</button>
-    <button onclick="enviarStatus('Pedido Entregue')">Pedido Entregue</button>
+    <div class="container">
+        
+        <!-- TABELA PEDIDOS -->
+        <div class="section">
+            <h2>Pedidos</h2>
+            <table>
+                <tr>
+                    <th>Número Pedido</th>
+                    <th>Número Cliente</th>
+                    <th>Data Compra</th>
+                    <th>Nome Cliente</th>
+                    <th>Status</th>
+                    <th>Valor</th>
+                    <th>Nota Fiscal</th>
+                    <th>Boleto</th>
+                    <th>Rastreio</th>
+                </tr>
+                <tr>
+                    <td>26225</td><td>1034</td><td>19/02/2025</td><td>João</td><td>Faturado</td><td>R$ 150,17</td>
+                    <td><a href="https://www.policontcontabilidade.com.br/arquivos/Modelo_de_NFs__-_Simples_Nacional.pdf">NF</a></td>
+                    <td><a href="https://www.banese.com.br/conteudo/uploads/2024/01/Modelo-de-Boleto.pdf">Boleto</a></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>70433</td><td>770</td><td>12/02/2025</td><td>Maria</td><td>Enviado</td><td>R$ 158,38</td>
+                    <td><a href="https://www.policontcontabilidade.com.br/arquivos/Modelo_de_NFs__-_Simples_Nacional.pdf">NF</a></td>
+                    <td><a href="https://www.banese.com.br/conteudo/uploads/2024/01/Modelo-de-Boleto.pdf">Boleto</a></td>
+                    <td><a href="https://app.melhorrastreio.com.br/app/jadlog/18015934734963">Rastreio</a></td>
+                </tr>
+                <!-- Adicione as outras linhas aqui -->
+            </table>
+        </div>
+
+        <!-- PARTE INFERIOR -->
+        <div class="bottom-section">
+            
+            <!-- BOTÕES -->
+            <div class="buttons">
+                <h2>Atualização de Status do Pedido</h2>
+                <button onclick="enviarStatus('Pedido Confirmado')">Pedido Confirmado</button>
+                <button onclick="enviarStatus('Pedido Enviado')">Pedido Enviado</button>
+                <button onclick="enviarStatus('Pedido Entregue')">Pedido Entregue</button>
+            </div>
+
+            <!-- TABELA VENDEDORES X CLIENTES -->
+            <div class="vendedores-clientes">
+                <h2>Vendedores X Clientes</h2>
+                <table>
+                    <tr>
+                        <th>Código Cliente</th>
+                        <th>Email Cliente</th>
+                        <th>Nome Vendedor</th>
+                        <th>Telefone Vendedor</th>
+                    </tr>
+                    <tr>
+                        <td>58473</td><td>mariaclara@gmail.com</td><td>João Almeida</td><td>(11) 96798-3542</td>
+                    </tr>
+                    <tr>
+                        <td>29229</td><td>carloshenrique83@gmail.com</td><td>Rodrigo Almeida</td><td>(11) 96599-6055</td>
+                    </tr>
+                    <tr>
+                        <td>65659</td><td>pedroalmeida45@gmail.com</td><td>Pedro Souza</td><td>(21) 99507-5599</td>
+                    </tr>
+                    <tr>
+                        <td>38138</td><td>sophiacruz68@gmail.com</td><td>Pedro Santos</td><td>(49) 95386-5285</td>
+                    </tr>
+                    <tr>
+                        <td>46125</td><td>carloshenrique76@gmail.com</td><td>Mariana Mendes</td><td>(21) 95286-3139</td>
+                    </tr>
+                    <tr>
+                        <td>54360</td><td>anapereira84@hotmail.com</td><td>Mariana Souza</td><td>(34) 96828-4687</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
 </html>
