@@ -93,6 +93,37 @@
             background: #0056b3;
         }
     </style>
+	
+	<script>
+    function enviarStatus(status) {
+        const webhookURL = "https://hook.eu2.make.com/k3cgswnxkwflya2n8vseontkwhb6ng7a";
+
+        const payload = {
+            função: "Atualiza Status",
+            Status: status
+        };
+
+        fetch(webhookURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Status atualizado para: " + status);
+            } else {
+                alert("Erro ao enviar status.");
+            }
+        })
+        .catch(error => {
+            alert("Erro na requisição: " + error);
+        });
+    }
+   </script>
+
+	
 </head>
 <body>
 
@@ -178,3 +209,4 @@
 
 </body>
 </html>
+
